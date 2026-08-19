@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Federico Bocol III — Personal Portfolio">
+  <title>Federico Bocol III | Portfolio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap');
+
+    :root{
+      --bg:#070707;
+      --text:#f4f4f4;
+      --muted:#a7a7a7;
+      --line:rgba(255,255,255,.13);
+      --card:rgba(255,255,255,.055);
+      --accent:#d8b27c;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      background:var(--bg); color:var(--text); font-family:Inter,Arial,sans-serif;
+      overflow-x:hidden; line-height:1.6;
+    }
+    a{color:inherit;text-decoration:none}
+    .grain{position:fixed;inset:0;pointer-events:none;opacity:.035;z-index:50;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E")}
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:40;padding:22px 6%;
+      display:flex;justify-content:space-between;align-items:center;
+      background:linear-gradient(to bottom,rgba(0,0,0,.72),transparent);
+      backdrop-filter:blur(4px);
+    }
+    .logo{font-weight:800;letter-spacing:.12em;font-size:.82rem}
+    .navlinks{display:flex;gap:28px;font-size:.78rem;color:#ccc}
+    .navlinks a:hover{color:#fff}
+    .hero{
+      min-height:100vh;position:relative;display:flex;align-items:flex-end;
+      padding:0 7% 9vh;overflow:hidden;
+      background:
+        radial-gradient(circle at 70% 30%,rgba(216,178,124,.16),transparent 28%),
+        radial-gradient(circle at 15% 70%,rgba(255,255,255,.06),transparent 25%),
+        linear-gradient(135deg,#111,#050505 60%);
+    }
+    .hero:before{
+      content:"";position:absolute;inset:-20%;
+      background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.06),transparent 55%);
+      transform:translateX(-60%);animation:sweep 8s infinite ease-in-out;
+    }
+    @keyframes sweep{50%{transform:translateX(60%)}100%{transform:translateX(60%)}}
+    .hero-content{position:relative;max-width:1000px}
+    .eyebrow{text-transform:uppercase;letter-spacing:.32em;font-size:.68rem;color:var(--accent);margin-bottom:22px}
+    h1{font-family:"Playfair Display",serif;font-size:clamp(4rem,11vw,10rem);line-height:.86;font-weight:600;letter-spacing:-.05em}
+    .hero-sub{margin-top:28px;color:#c5c5c5;max-width:650px;font-size:clamp(1rem,2vw,1.25rem)}
+    .scroll{margin-top:42px;display:inline-flex;gap:14px;align-items:center;color:#aaa;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase}
+    .scroll span{display:block;width:48px;height:1px;background:#888}
+    section{padding:120px 7%;position:relative}
+    .section-label{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+    h2{font-family:"Playfair Display",serif;font-size:clamp(2.7rem,6vw,5.5rem);line-height:1;margin-bottom:32px}
+    .intro{max-width:800px;color:#c1c1c1;font-size:1.12rem}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:55px}
+    .card{background:var(--card);border:1px solid var(--line);padding:34px;border-radius:4px;transition:.4s transform,.4s background}
+    .card:hover{transform:translateY(-7px);background:rgba(255,255,255,.085)}
+    .card small{color:var(--accent);letter-spacing:.15em;text-transform:uppercase}
+    .card h3{margin:12px 0 8px;font-size:1.25rem}
+    .card p{color:#aaa;font-size:.94rem}
+    .skills{display:flex;flex-wrap:wrap;gap:12px;margin-top:38px}
+    .skill{border:1px solid var(--line);padding:12px 18px;border-radius:999px;color:#ccc;font-size:.85rem}
+    .timeline{margin-top:50px;border-left:1px solid var(--line)}
+    .timeline-item{padding:0 0 55px 35px;position:relative}
+    .timeline-item:before{content:"";position:absolute;left:-5px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+    .timeline-item .date{font-size:.7rem;color:var(--accent);letter-spacing:.18em;text-transform:uppercase}
+    .timeline-item h3{font-size:1.4rem;margin:8px 0 3px}
+    .timeline-item p{color:#aaa;max-width:700px}
+    .contact{min-height:70vh;display:flex;flex-direction:column;justify-content:center;text-align:center;background:linear-gradient(180deg,#070707,#111)}
+    .contact h2{font-size:clamp(3rem,8vw,7rem)}
+    .contact p{color:#aaa;margin:auto;max-width:600px}
+    .cta{display:inline-block;margin-top:34px;padding:16px 28px;border:1px solid #777;transition:.3s}
+    .cta:hover{background:#fff;color:#000}
+    footer{padding:28px 7%;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#777;font-size:.75rem}
+    .reveal{opacity:0;transform:translateY(35px);transition:1s ease}
+    .reveal.show{opacity:1;transform:none}
+    @media(max-width:700px){
+      .navlinks{display:none}.hero{padding:0 7% 70px}section{padding:85px 7%}
+      .grid{grid-template-columns:1fr}.card{padding:25px}footer{flex-direction:column;gap:8px}
+    }
+  </style>
+</head>
+<body>
+<div class="grain"></div>
+
+<nav>
+  <a class="logo" href="#home">FED • BOCOL III</a>
+  <div class="navlinks">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="hero-content reveal">
+    <div class="eyebrow">Personal Portfolio • 2026</div>
+    <h1>Federico<br>Bocol III</h1>
+    <p class="hero-sub">A detail-oriented professional combining technical support, customer experience, administrative skills, and a passion for continuous growth.</p>
+    <a class="scroll" href="#about"><span></span> Explore my story</a>
+  </div>
+</header>
+
+<section id="about">
+  <div class="section-label reveal">01 — About</div>
+  <h2 class="reveal">Professional.<br>Curious. Reliable.</h2>
+  <p class="intro reveal">I am a Licensed Professional Teacher with professional experience in the BPO industry. My background has strengthened my communication, problem-solving, documentation, data management, and customer support skills. I enjoy learning new systems, solving problems, and helping teams stay organized and efficient.</p>
+</section>
+
+<section id="experience">
+  <div class="section-label reveal">02 — Experience</div>
+  <h2 class="reveal">What I bring<br>to the table.</h2>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="date">BPO • 3 Years</div>
+      <h3>Technical Support & Customer Service</h3>
+      <p>Handled customer concerns, technical troubleshooting, system diagnostics, documentation, and professional communication in a high-volume environment.</p>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="date">Real Estate • 5 Months</div>
+      <h3>Lead Generation & Appointment Setting</h3>
+      <p>Supported a real estate business through outbound calling, lead qualification, handling objections, updating lead information, and maintaining accurate dispositions.</p>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="date">Administrative Focus</div>
+      <h3>Data & Office Support</h3>
+      <p>Experienced in organizing information, tracking updates, working with spreadsheets, encoding customer information, and supporting day-to-day administrative tasks.</p>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-label reveal">03 — Skills</div>
+  <h2 class="reveal">Tools & strengths.</h2>
+  <div class="skills reveal">
+    <span class="skill">Technical Troubleshooting</span>
+    <span class="skill">Customer Service</span>
+    <span class="skill">Data Entry</span>
+    <span class="skill">Administrative Support</span>
+    <span class="skill">Microsoft Excel</span>
+    <span class="skill">Google Sheets</span>
+    <span class="skill">Documentation</span>
+    <span class="skill">Lead Qualification</span>
+    <span class="skill">Communication</span>
+    <span class="skill">Problem Solving</span>
+    <span class="skill">Multichannel Support</span>
+    <span class="skill">Fast Learning</span>
+  </div>
+
+  <div class="grid">
+    <div class="card reveal"><small>Strength 01</small><h3>Problem Solver</h3><p>I approach issues systematically, identify the root cause, and work toward practical solutions.</p></div>
+    <div class="card reveal"><small>Strength 02</small><h3>Detail Oriented</h3><p>I value accuracy when handling customer information, documentation, records, and spreadsheets.</p></div>
+    <div class="card reveal"><small>Strength 03</small><h3>Adaptable</h3><p>Comfortable learning new tools, processes, systems, and workflows in changing environments.</p></div>
+    <div class="card reveal"><small>Strength 04</small><h3>Professional Communication</h3><p>Experienced in communicating clearly and respectfully with customers, colleagues, and stakeholders.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label reveal">04 — Education</div>
+  <h2 class="reveal">Built on<br>education.</h2>
+  <div class="card reveal">
+    <small>Education</small>
+    <h3>Bachelor's Degree in Secondary Education</h3>
+    <p>Major in Physical Education • Licensed Professional Teacher</p>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-label reveal">05 — Contact</div>
+  <h2 class="reveal">Let's connect.</h2>
+  <p class="reveal">Interested in working together or learning more about my experience? I'd be happy to connect.</p>
+  <!-- Replace the email below with your actual email -->
+  <a class="cta reveal" href="mailto:YOUR-EMAIL@example.com">GET IN TOUCH</a>
+</section>
+
+<footer>
+  <span>© 2026 Federico Bocol III</span>
+  <span>Personal Portfolio</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('show');
+    });
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
